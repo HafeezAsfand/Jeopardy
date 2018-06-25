@@ -8,8 +8,9 @@ import { DataService } from './data.service'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
-
+  title = 'Our Game';
+  score=0;
+  answer = ""
   questionInfo;
 
   constructor(private DataService: DataService){}
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
       .subscribe(
         questionInfo => {
           this.questionInfo = questionInfo[0];
+          console.log(this.questionInfo.answer)
         }
       )
   }
@@ -27,5 +29,20 @@ export class AppComponent implements OnInit {
     this.getQuestionInfo()
   }
 
+  submit(answer)
+  {
+    if(answer == this.questionInfo.answer)
+    {
+      this.score+=this.questionInfo.value
+    }
+    else
+    {
+      this.score-=this.questionInfo.value
+    }
+    this.getQuestionInfo();
+    this.answer= ""
+  }
+
+  
 
 }
